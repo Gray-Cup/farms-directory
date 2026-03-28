@@ -133,7 +133,7 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
 
   return (
     <>
-      <div className="layout">
+      <div className="layout" style={{ height: '100vh', overflow: 'hidden' }}>
         <aside className="locations-sidebar">
           {selectedFarm ? (
             <>

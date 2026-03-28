@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Gray Farms',
     description: 'Discover coffee and tea farms across India.',
+    images: [{ url: '/gray-farms-og.png' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    images: ['/gray-farms-og.png'],
   },
 }
 

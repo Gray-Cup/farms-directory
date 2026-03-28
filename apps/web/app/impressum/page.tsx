@@ -4,8 +4,8 @@ export const metadata = {
 
 export default function ImpressumPage() {
   return (
-    <div className="layout" style={{ display: 'block' }}>
-      <div className="form-page">
+    <div className="layout" style={{ display: 'block', height: '100vh', overflowY: 'auto' }}>
+      <div className="form-page" style={{ height: 'auto', overflow: 'visible' }}>
         <a href="/" className="back">← Back to directory</a>
         <h2>Impressum</h2>
 
