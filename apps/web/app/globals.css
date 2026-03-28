@@ -144,12 +144,12 @@ header {
   gap: 0.5rem;
   padding: 0.875rem 1.25rem;
 }
-header h1 { font-size: var(--text-heading); margin-right: 0.5rem; }
+header h1 { font-size: var(--text-heading); font-weight: 500; margin-right: 0.5rem; }
 header p  { font-size: var(--text-small); }
 
 .header-right {
   margin-left: auto;
-  font-size: var(--text-xsmall);
+  font-size: var(--text-small);
   color: var(--app-color-muted);
   display: inline-flex;
   gap: 1.25rem;
@@ -166,10 +166,18 @@ header p  { font-size: var(--text-small); }
   background: #111;
   color: #fff !important;
   border-radius: 6px;
-  font-size: var(--text-xsmall);
+  font-size: var(--text-small);
+  box-shadow: 0px 6px #c4c4c4;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
 }
 .graycup-btn:hover { opacity: 0.85; color: #fff !important; }
 .graycup-btn:visited { color: #fff !important; }
+.graycup-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0px 2px #c4c4c4;
+  transition: box-shadow 0.2s ease, transform 0.3s ease;
+}
 
 /* ── Two-column layout ─────────────────────────────────── */
 .layout {
@@ -317,11 +325,11 @@ header p  { font-size: var(--text-small); }
   flex-direction: column;
   gap: 0.15rem;
   padding: 0.75rem 1rem;
-  background: #d97706;
+  background: #797979;
   border-radius: 8px;
   text-decoration: none;
 }
-.sidebar-cta:hover { background: #b45309; }
+.sidebar-cta:hover { background: #424242; }
 .sidebar-cta-label {
   font-size: var(--text-small);
   font-weight: 600;
@@ -331,6 +339,43 @@ header p  { font-size: var(--text-small); }
   font-size: var(--text-xsmall);
   color: rgba(255, 255, 255, 0.8);
 }
+
+/* ── Contact info (Turnstile-gated) ─────────────────────── */
+.contact-reveal-btn {
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.35rem 0.75rem;
+  font-size: var(--text-xsmall);
+  color: #555;
+  cursor: pointer;
+  font-family: inherit;
+}
+.contact-reveal-btn:hover { border-color: #aaa; color: #111; }
+
+.contact-turnstile { margin-top: 0.25rem; }
+
+.contact-status,
+.contact-none {
+  font-size: var(--text-xsmall);
+  color: var(--app-color-muted);
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: var(--text-small);
+  color: inherit;
+}
+.contact-row:visited { color: inherit; }
+.contact-row:hover { opacity: 0.75; }
+.contact-icon { font-size: 0.75rem; }
 
 /* ── About / Impressum pages ─────────────────────────────── */
 .about-lead {

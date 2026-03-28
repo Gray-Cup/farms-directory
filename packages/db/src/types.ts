@@ -79,6 +79,8 @@ export interface CoffeeFarmData {
   lat: number | null
   lng: number | null
   url: string | null
+  phone?: string | null
+  email?: string | null
   description: string | null
   elevation_meters: number | null
   varieties: string[]
@@ -97,6 +99,8 @@ export interface TeaFarmData {
   lat: number | null
   lng: number | null
   url: string | null
+  phone?: string | null
+  email?: string | null
   description: string | null
   elevation_meters: number | null
   tea_types: string[]

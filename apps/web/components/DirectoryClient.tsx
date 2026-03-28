@@ -4,6 +4,7 @@ import { useState, useMemo, useCallback } from 'react'
 import dynamic from 'next/dynamic'
 import type { CoffeeFarmData, TeaFarmData } from '@farms/db'
 import { SlidersHorizontalIcon } from 'lucide-react'
+import TurnstileGate from './TurnstileGate'
 import {
   Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogClose,
 } from '@/components/ui/dialog'
@@ -141,14 +142,10 @@ export default function DirectoryClient({ coffeeFarms, teaFarms }: Props) {
                   <div className="badges">{selectedFarmCerts.map(c => <span key={c} className="badge">{c}</span>)}</div>
                 </div>
               )}
-              {selectedFarm.lat != null && selectedFarm.lng != null && (
-                <a
-                  href={`https://www.openstreetmap.org/?mlat=${selectedFarm.lat}&mlon=${selectedFarm.lng}&zoom=13`}
-                  target="_blank" rel="noopener noreferrer" className="detail-osm-link"
-                >
-                  View on OpenStreetMap →
-                </a>
-              )}
+              <div className="detail-section">
+                <div className="detail-section-label">Contact</div>
+                <TurnstileGate farmId={selectedFarm.id} />
+              </div>
             </div>
             {sidebarFooter}
           </>
