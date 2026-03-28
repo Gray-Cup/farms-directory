@@ -75,7 +75,7 @@
   --text-regular: 0.9rem;
   --text-small: 0.8rem;
   --text-xsmall: 0.7rem;
-  --app-color-primary: blue;
+  --app-color-primary: #111;
   --app-color-muted: #999;
   --app-color-hover: #f4f4f4;
   --app-color-surface: #f8f8f8;
@@ -105,7 +105,7 @@ a {
   text-decoration: none;
   color: var(--app-color-primary);
 }
-a:visited { color: purple; }
+a:visited { color: #555; }
 a:hover { color: inherit; }
 a.light { color: var(--app-color-muted); }
 a.light:hover { color: var(--app-color-primary); }
@@ -317,19 +317,19 @@ header p  { font-size: var(--text-small); }
   flex-direction: column;
   gap: 0.15rem;
   padding: 0.75rem 1rem;
-  background: var(--app-color-surface);
+  background: #d97706;
   border-radius: 8px;
   text-decoration: none;
 }
-.sidebar-cta:hover { background: var(--app-color-hover); }
+.sidebar-cta:hover { background: #b45309; }
 .sidebar-cta-label {
   font-size: var(--text-small);
   font-weight: 600;
-  color: #111;
+  color: #fff;
 }
 .sidebar-cta-sub {
   font-size: var(--text-xsmall);
-  color: var(--app-color-muted);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* ── About / Impressum pages ─────────────────────────────── */
@@ -511,8 +511,8 @@ header p  { font-size: var(--text-small); }
   color: #555;
 }
 .badge-primary {
-  background: #e8eeff;
-  color: var(--app-color-primary);
+  background: #e8e8e8;
+  color: #333;
 }
 
 /* ── Map ─────────────────────────────────────────────────── */
