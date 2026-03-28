@@ -25,7 +25,7 @@ export default function Navbar() {
           <div className="navbar-right">
             <SubmitDialog />
             <a
-              href="https://graycup.com"
+              href="https://graycup.org"
               target="_blank"
               rel="noopener noreferrer"
               className="graycup-btn"
@@ -57,7 +57,7 @@ export default function Navbar() {
           </nav>
           <div className="mobile-actions">
             <a
-              href="https://graycup.com"
+              href="https://graycup.org"
               target="_blank"
               rel="noopener noreferrer"
               className="graycup-btn"
