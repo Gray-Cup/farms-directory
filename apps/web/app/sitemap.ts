@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { getCoffeeFarms, getTeaFarms, toSlug } from '@/lib/farms'
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://grayfarms.com'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://grayfarms.in'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const all = [...getCoffeeFarms(), ...getTeaFarms()]
