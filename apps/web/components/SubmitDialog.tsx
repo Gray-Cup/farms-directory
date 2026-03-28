@@ -143,7 +143,7 @@ export default function SubmitDialog({ open: externalOpen, onOpenChange: externa
               </DialogDescription>
             </DialogHeader>
             <DialogFooter>
-              <Button onClick={() => { setOpen(false); reset() }}>Done</Button>
+              <Button onClick={() => handleOpenChange(false)}>Done</Button>
             </DialogFooter>
           </div>
         ) : (
