@@ -97,7 +97,6 @@ export default function DirectoryClient({ coffeeFarms, teaFarms }: Props) {
   const sidebarFooter = (
     <div className="sidebar-footer">
       <p>Made with Love by Arjun Aditya</p>
-      <a href="https://github.com/graycup/farms-directory" className="light">Source on GitHub</a>
       <a href="/get-your-website" className="website-cta">You need a website? →</a>
     </div>
   )

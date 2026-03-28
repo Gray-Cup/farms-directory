@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <h1><a href="/">Gray Farms</a></h1>
           <p>Coffee &amp; Tea Estates in India</p>
           <nav className="header-right">
-            <a href="https://github.com/graycup/farms-directory">Source</a>
+            <a href="https://github.com/Gray-Cup/farms-directory">Source</a>
             <SubmitDialog />
             <a href="https://graycup.com" target="_blank" rel="noopener noreferrer" className="graycup-btn">
               Visit Gray Cup
