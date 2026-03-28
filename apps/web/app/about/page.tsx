@@ -6,7 +6,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="layout" style={{ display: 'block' }}>
-      <div className="form-page">
+      <div className="form-page" style={{ height: 'auto', overflow: 'visible' }}>
         <a href="/" className="back">← Back to directory</a>
         <h2>About Gray Farms</h2>
 
