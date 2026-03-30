@@ -140,7 +140,7 @@ input[type="checkbox"]:focus-visible {
 header {
   display: flex;
   align-items: center;
-  height: 3.75rem;
+  height: 4.5rem;
   border-bottom: 1px solid #e5e5e5;
   background: #fff;
   flex-shrink: 0;
