@@ -25,7 +25,7 @@ export default function GetYourWebsitePage() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-submit"
-            style={{ display: 'inline-block', textDecoration: 'none', background: '#111', color: '#fff' }}
+            style={{ display: 'inline-block', textDecoration: 'none' }}
           >
             Visit Gray Cup →
           </a>

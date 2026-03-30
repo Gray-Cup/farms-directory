@@ -1044,6 +1044,9 @@ html.dark .theme-toggle-btn:hover { background: #161616; color: #ececec; }
 html.dark a { color: var(--app-color-primary); }
 html.dark a:visited { color: #888; }
 
+html.dark .btn-submit { background: #e5e5e5; color: #111; }
+html.dark .btn-submit:hover { opacity: 0.85; }
+
 html.dark input[type="checkbox"] {
   border-color: #333;
   background: #111;
