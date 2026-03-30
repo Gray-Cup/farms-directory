@@ -79,7 +79,17 @@
   --app-color-muted: #999;
   --app-color-hover: #f4f4f4;
   --app-color-surface: #f8f8f8;
+  --app-color-border: #e5e5e5;
   color-scheme: light;
+}
+
+html.dark {
+  --app-color-primary: #ececec;
+  --app-color-muted: #555;
+  --app-color-hover: #161616;
+  --app-color-surface: #111;
+  --app-color-border: #1e1e1e;
+  color-scheme: dark;
 }
 
 *, *::before, *::after {
@@ -92,6 +102,10 @@ html, body {
   overflow: hidden;
   background: #fff;
   color: #111;
+}
+html.dark, html.dark body {
+  background: #0a0a0a;
+  color: #ececec;
 }
 
 body {
@@ -234,6 +248,22 @@ header {
   align-items: center;
   gap: 0.75rem;
 }
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 6px;
+  color: #555;
+  line-height: 0;
+}
+.theme-toggle-btn:hover { background: #f4f4f4; color: #111; }
+html.dark .theme-toggle-btn { color: #888; }
+html.dark .theme-toggle-btn:hover { background: #161616; color: #ececec; }
 
 .submit-btn {
   font-size: 0.9rem;
@@ -986,6 +1016,119 @@ header {
   margin-top: 1rem;
   font-size: var(--text-small);
   color: #c00;
+}
+
+/* ── Dark mode overrides ─────────────────────────────────── */
+html.dark a { color: var(--app-color-primary); }
+html.dark a:visited { color: #888; }
+
+html.dark input[type="checkbox"] {
+  border-color: #333;
+  background: #111;
+}
+
+html.dark header {
+  background: #0a0a0a;
+  border-bottom-color: #1e1e1e;
+}
+
+html.dark .navbar-brand { color: #ececec !important; }
+html.dark .navbar-brand:visited { color: #ececec !important; }
+html.dark .navbar-sep { color: #2a2a2a; }
+html.dark .navbar-links a { color: #888; }
+html.dark .navbar-links a:visited { color: #888; }
+html.dark .navbar-links a:hover { background: #161616; color: #ececec; }
+
+html.dark .navbar-pages-btn { color: #888; }
+html.dark .navbar-pages-btn:hover { background: #161616; color: #ececec; }
+html.dark .navbar-pages-dropdown {
+  background: #0d0d0d;
+  border-color: #1e1e1e;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+html.dark .navbar-pages-dropdown a { color: #aaa; }
+html.dark .navbar-pages-dropdown a:visited { color: #aaa; }
+html.dark .navbar-pages-dropdown a:hover { background: #161616; color: #ececec; }
+
+html.dark .submit-btn { color: #888 !important; }
+html.dark .submit-btn:hover { background: #161616; color: #ececec !important; }
+
+html.dark .graycup-btn { background: #ececec; color: #0a0a0a !important; }
+html.dark .graycup-btn:hover { color: #0a0a0a !important; }
+html.dark .graycup-btn:visited { color: #0a0a0a !important; }
+
+html.dark .hamburger-btn { color: #ececec; }
+html.dark .hamburger-btn:hover { background: #161616; }
+
+html.dark .mobile-drawer {
+  background: #0d0d0d;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.6);
+}
+html.dark .mobile-close { color: #888; }
+html.dark .mobile-close:hover { background: #161616; color: #ececec; }
+html.dark .mobile-nav a { color: #ececec; }
+html.dark .mobile-nav a:visited { color: #ececec; }
+html.dark .mobile-nav a:hover { background: #161616; }
+
+html.dark .search input { background: #111; color: #ececec; }
+html.dark .filter-btn { color: #666; }
+
+html.dark .results-list-wrap::after {
+  background: linear-gradient(to bottom, transparent, rgba(10,10,10,0.95));
+}
+
+html.dark .sidebar-cta { background: #111; }
+html.dark .sidebar-cta:hover { background: #161616; }
+html.dark .sidebar-cta-label { color: #ececec; }
+html.dark .sidebar-cta-sub { color: #555; }
+
+html.dark .contact-reveal-btn { border-color: #222; color: #666; }
+html.dark .contact-reveal-btn:hover { border-color: #444; color: #ececec; }
+
+html.dark .badge { background: #161616; color: #888; }
+html.dark .badge-primary { background: #1a1a1a; color: #ccc; }
+
+html.dark .map-style-toggle { background: #0d0d0d; border-color: #2a2a2a; color: #ececec; box-shadow: 0 1px 6px rgba(0,0,0,0.5); }
+html.dark .map-style-toggle:hover { background: #161616; }
+html.dark .map-style-toggle--active { background: #ececec; color: #0a0a0a; border-color: #ececec; }
+html.dark .map-style-toggle--active:hover { background: #ccc; }
+
+html.dark .about-lead { color: #aaa; }
+html.dark .about-section h3 { color: #ececec; }
+html.dark .about-section p { color: #aaa; }
+html.dark .about-cta { background: #111; }
+html.dark .about-cta p { color: #ececec; }
+
+html.dark .pages-card { border-color: #1e1e1e; }
+html.dark .pages-card:hover { border-color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.4); }
+html.dark .pages-card-label { color: #ececec; }
+
+html.dark .sitemap-section a { color: #888; }
+html.dark .sitemap-section a:hover { color: #ececec; }
+
+html.dark .site-footer { border-top-color: #1e1e1e; }
+html.dark .site-footer-brand { color: #ececec; }
+html.dark .site-footer-links a { color: #666; }
+html.dark .site-footer-links a:visited { color: #666; }
+html.dark .site-footer-links a:hover { color: #ececec; }
+html.dark .site-footer-copy a:hover { color: #ececec; }
+
+html.dark .form-group input[type="text"],
+html.dark .form-group input[type="email"],
+html.dark .form-group input[type="url"],
+html.dark .form-group input[type="number"],
+html.dark .form-group select,
+html.dark .form-group textarea {
+  background: #111;
+  color: #ececec;
+}
+
+html.dark .form-success { background: #0d1a0f; color: #7dba8a; }
+html.dark .form-error { background: #1a0d0d; color: #e07070; }
+
+html.dark .tab-btn.active {
+  color: var(--app-color-primary);
+  border-bottom-color: var(--app-color-primary);
 }
 
 /* ── Mobile ──────────────────────────────────────────────── */
