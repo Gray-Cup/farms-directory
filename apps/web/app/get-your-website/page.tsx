@@ -30,7 +30,7 @@ export default function GetYourWebsitePage() {
             <span className="pages-card-desc">See our work and portfolio at graycup.com</span>
           </a>
           <a
-            href="https://wa.me/918527914317?text=I%20would%20like%20to%20enquire%20about%20websites%20you%20make%20and%20I%20got%20your%20number%20from%20grayfarms"
+            href="https://wa.me/918527914317?text=I%20would%20like%20to%20enquire%20about%20websites%20you%20make%20and%20I%20got%20your%20number%20from%20gray%20farms"
             target="_blank"
             rel="noopener noreferrer"
             className="pages-card"
