@@ -4,8 +4,12 @@ import Navbar from '@/components/Navbar'
 import { Analytics } from '@vercel/analytics/next'
 
 export const metadata: Metadata = {
-  title: 'Gray Farms — Coffee & Tea Estates in India',
-  description: 'A curated directory of coffee and tea farms across India.',
+  title: 'Gray Farms | Find Coffee and Tea Farms of India',
+  description: 'Discover coffee and tea farms across India — from Coorg and Wayanad in the south to Assam and Darjeeling in the northeast. A free, open directory.',
+  icons: {
+    icon: '/favicon.png',
+    apple: '/favicon.png',
+  },
   openGraph: {
     title: 'Gray Farms',
     description: 'Discover coffee and tea farms across India.',
