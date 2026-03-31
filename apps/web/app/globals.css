@@ -613,7 +613,11 @@ html.dark .theme-toggle-btn:hover { background: #161616; color: #ececec; }
 
 /* ── About / Impressum pages ─────────────────────────────── */
 .about-hero-image {
-  margin: 2rem -1.5rem;
+  margin: 2rem auto;
+  width: 85%;
+}
+.about-hero-image img {
+  border-radius: 6px;
 }
 .about-hero-image figcaption {
   font-size: var(--text-small);
@@ -1226,5 +1230,5 @@ html.dark .tab-btn.active {
 
 @media (max-width: 500px) {
   .form-page { padding: 1.25rem 1rem; }
-  .about-hero-image { margin-left: -1rem; margin-right: -1rem; }
+  .about-hero-image { width: 100%; }
 }

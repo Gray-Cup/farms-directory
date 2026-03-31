@@ -13,7 +13,7 @@ export default function AboutPage() {
         <h2>About Gray Farms</h2>
         <figure className="about-hero-image">
           <Image
-            src="/palampur-himachal.png"
+            src="/palampur-himachal.webp"
             alt="Tea estate in Palampur, Himachal Pradesh"
             width={1500}
             height={750}
