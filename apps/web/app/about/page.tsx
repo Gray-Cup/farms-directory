@@ -1,5 +1,5 @@
 import Footer from '@/components/Footer'
-
+import Image from "next/image"
 export const metadata = {
   title: 'About — Gray Farms',
   description: 'Gray Farms is a free and open directory of coffee and tea farms across India, built by Gray Cup Enterprises Private Limited.',
@@ -11,7 +11,16 @@ export default function AboutPage() {
       <div className="form-page" style={{ height: 'auto', overflow: 'visible' }}>
         <a href="/" className="back">← Back to directory</a>
         <h2>About Gray Farms</h2>
-
+        <figure className="about-hero-image">
+          <Image
+            src="/palampur-himachal.png"
+            alt="Tea estate in Palampur, Himachal Pradesh"
+            width={1500}
+            height={750}
+            style={{ width: '100%', height: 'auto', display: 'block' }}
+          />
+          <figcaption>Tea estate in Palampur, Himachal Pradesh</figcaption>
+        </figure>
         <p className="about-lead">
           Gray Farms is a free and open directory of coffee and tea farms across India —
           an initiative by{' '}

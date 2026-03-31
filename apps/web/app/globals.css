@@ -612,6 +612,16 @@ html.dark .theme-toggle-btn:hover { background: #161616; color: #ececec; }
 .contact-icon { font-size: 0.75rem; }
 
 /* ── About / Impressum pages ─────────────────────────────── */
+.about-hero-image {
+  margin: 2rem -1.5rem;
+}
+.about-hero-image figcaption {
+  font-size: var(--text-small);
+  color: #888;
+  text-align: center;
+  padding: 0.5rem 0 0;
+}
+
 .about-lead {
   font-size: var(--text-small);
   line-height: 1.7;
@@ -633,6 +643,14 @@ html.dark .theme-toggle-btn:hover { background: #161616; color: #ececec; }
   line-height: 1.7;
   color: #444;
 }
+.about-lead a,
+.about-section p a {
+  text-decoration: underline;
+  color: inherit;
+  transition: color 0.15s;
+}
+.about-lead a:hover,
+.about-section p a:hover { color: #111; }
 .about-section br { display: block; margin-bottom: 0.1rem; content: ''; }
 
 .about-cta {
@@ -1144,6 +1162,8 @@ html.dark .leaflet-control-attribution a { color: #666 !important; }
 html.dark .about-lead { color: #aaa; }
 html.dark .about-section h3 { color: #ececec; }
 html.dark .about-section p { color: #aaa; }
+html.dark .about-lead a:hover,
+html.dark .about-section p a:hover { color: #ececec; }
 html.dark .about-cta { background: #111; }
 html.dark .about-cta p { color: #ececec; }
 
@@ -1206,4 +1226,5 @@ html.dark .tab-btn.active {
 
 @media (max-width: 500px) {
   .form-page { padding: 1.25rem 1rem; }
+  .about-hero-image { margin-left: -1rem; margin-right: -1rem; }
 }
