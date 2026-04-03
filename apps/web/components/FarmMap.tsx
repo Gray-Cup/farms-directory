@@ -48,9 +48,9 @@ const TILES = {
     labels: 'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
   },
   satellite: {
-    url: 'https://mt{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-    options: { subdomains: '0123', attribution: '&copy; Google', maxNativeZoom: 20, maxZoom: 20 },
-    labels: 'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
+    url: 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
+    options: { subdomains: 'abc', maxZoom: 20, attribution: '&copy; <a href="https://www.cyclosm.org">CyclOSM</a>, &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>' },
+    labels: '',
   },
 }
 
@@ -244,16 +244,20 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
       if (baseTileRef.current) { baseTileRef.current.remove() }
       if (labelsTileRef.current) { labelsTileRef.current.remove() }
       baseTileRef.current = L.tileLayer(tiles.url, tiles.options).addTo(map)
-      labelsTileRef.current = L.tileLayer(tiles.labels, {
-        subdomains: 'abcd',
-        pane: 'shadowPane',
-      }).addTo(map)
+      if (tiles.labels) {
+        labelsTileRef.current = L.tileLayer(tiles.labels, {
+          subdomains: 'abcd',
+          pane: 'shadowPane',
+        }).addTo(map)
+      } else {
+        labelsTileRef.current = null
+      }
 
       // Update the outside-India overlay fill
       if (overlayRef.current) {
         overlayRef.current.setStyle({
-          fillColor: satellite ? '#000' : (darkMode ? '#111' : '#ddd'),
-          fillOpacity: satellite ? 0.45 : 0.6,
+          fillColor: darkMode ? '#111' : '#ddd',
+          fillOpacity: 0.6,
         })
       }
     })
