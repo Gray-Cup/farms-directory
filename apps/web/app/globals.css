@@ -1119,9 +1119,6 @@ html.dark .contact-reveal-btn:hover { border-color: #444; color: #ececec; }
 html.dark .badge { background: #161616; color: #888; }
 html.dark .badge-primary { background: #1a1a1a; color: #ccc; }
 
-html.dark #map { background: #0a0a0a !important; }
-html.dark .leaflet-container { background: #0a0a0a !important; }
-html.dark #map .leaflet-shadow-pane { filter: contrast(6) brightness(1.15); }
 
 html.dark .leaflet-popup-content-wrapper,
 html.dark .leaflet-popup-tip {

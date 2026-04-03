@@ -36,17 +36,12 @@ const hiStyle = (farm: AnyFarm): L.CircleMarkerOptions => ({
   className: 'farm-dot farm-dot--selected',
 })
 
-const TILES = {
-  light: {
-    url: 'https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
-    options: { subdomains: 'abcd', attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/">CARTO</a>' },
-    labels: 'https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png',
-  },
-  dark: {
-    url: 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png',
-    options: { subdomains: 'abcd', attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/">CARTO</a>' },
-    labels: 'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
-  },
+const CYCLOSM_URL = 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png'
+const CYCLOSM_OPTIONS = {
+  maxZoom: 20,
+  attribution:
+    '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases">CyclOSM</a> | ' +
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }
 
 export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: Props) {
@@ -54,22 +49,8 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
   const mapRef = useRef<L.Map | null>(null)
   const markersRef = useRef<Map<string, { marker: L.CircleMarker; farm: AnyFarm }>>(new Map())
   const prevSelectedRef = useRef<string | null>(null)
-  const baseTileRef = useRef<L.TileLayer | null>(null)
-  const labelsTileRef = useRef<L.TileLayer | null>(null)
   const overlayRef = useRef<L.Polygon | null>(null)
   const [mapReady, setMapReady] = useState(false)
-  const [darkMode, setDarkMode] = useState(() =>
-    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
-  )
-
-  // Watch html.dark class for theme changes
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setDarkMode(document.documentElement.classList.contains('dark'))
-    })
-    observer.observe(document.documentElement, { attributeFilter: ['class'] })
-    return () => observer.disconnect()
-  }, [])
 
   // Initialise the Leaflet map once
   useEffect(() => {
@@ -92,16 +73,7 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
       mapRef.current = map
       setMapReady(true)
 
-      const isDark = document.documentElement.classList.contains('dark')
-      const initTiles = isDark ? TILES.dark : TILES.light
-      baseTileRef.current = L.tileLayer(initTiles.url, initTiles.options).addTo(map)
-
-      const addLabels = () => {
-        const tiles = document.documentElement.classList.contains('dark') ? TILES.dark : TILES.light
-        labelsTileRef.current = L.tileLayer(
-          tiles.labels, { subdomains: 'abcd', pane: 'shadowPane' }
-        ).addTo(map)
-      }
+      L.tileLayer(CYCLOSM_URL, { ...CYCLOSM_OPTIONS, subdomains: 'abc' }).addTo(map)
 
       fetch('/india.geojson')
         .then(r => r.json())
@@ -111,15 +83,13 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
             india.geometry.type === 'Polygon'
               ? [india.geometry.coordinates]
               : india.geometry.coordinates
-          const isDarkNow = document.documentElement.classList.contains('dark')
           const poly = L.polygon(
             [world, ...polys.map((p: number[][][]) => p[0].map(c => [c[1], c[0]] as [number, number]))],
-            { color: 'none', fillColor: isDarkNow ? '#111' : '#ddd', fillOpacity: 0.6, interactive: false }
+            { color: 'none', fillColor: '#ddd', fillOpacity: 0.5, interactive: false }
           ).addTo(map)
           overlayRef.current = poly
-          addLabels()
         })
-        .catch(addLabels)
+        .catch(() => {})
     })
 
     return () => {
@@ -228,26 +198,6 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
       prevSelectedRef.current = selectedId
     })
   }, [selectedId, selectedFarm, mapReady])
-
-  // Swap tile layers when dark mode changes
-  useEffect(() => {
-    if (!mapRef.current) return
-    import('leaflet').then(L => {
-      const map = mapRef.current!
-      const tiles = darkMode ? TILES.dark : TILES.light
-      if (baseTileRef.current) { baseTileRef.current.remove() }
-      if (labelsTileRef.current) { labelsTileRef.current.remove() }
-      baseTileRef.current = L.tileLayer(tiles.url, tiles.options).addTo(map)
-      labelsTileRef.current = L.tileLayer(tiles.labels, {
-        subdomains: 'abcd',
-        pane: 'shadowPane',
-      }).addTo(map)
-
-      if (overlayRef.current) {
-        overlayRef.current.setStyle({ fillColor: darkMode ? '#111' : '#ddd' })
-      }
-    })
-  }, [darkMode])
 
   return (
     <div ref={containerRef} id="map" />
