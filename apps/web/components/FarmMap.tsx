@@ -139,14 +139,13 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
         if (farm.lat == null || farm.lng == null) return
         if (existing.has(farm.id)) return
 
-        const q = [farm.name, farm.address, farm.city].filter(Boolean).join(', ')
         const popup =
           `<strong>${farm.name}</strong>` +
           (farm.address ? `<br><span class="popup-address">${farm.address}</span>` : '') +
           `<br>${farm.city}, ${farm.state}` +
           (farm.url
             ? `<br><a href="${farm.url}" target="_blank" rel="noopener">Website →</a>`
-            : `<br><a href="https://www.openstreetmap.org/search?query=${encodeURIComponent(q)}" target="_blank" rel="noopener">View on OpenStreetMap →</a>`)
+            : '')
 
         const marker = L.circleMarker([farm.lat, farm.lng], defStyle(farm))
           .bindPopup(popup, { autoClose: false })
