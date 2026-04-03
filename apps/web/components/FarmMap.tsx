@@ -47,11 +47,6 @@ const TILES = {
     options: { subdomains: 'abcd', attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/">CARTO</a>' },
     labels: 'https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png',
   },
-  satellite: {
-    url: 'https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png',
-    options: { subdomains: 'abc', maxZoom: 20, attribution: '&copy; <a href="https://www.cyclosm.org">CyclOSM</a>, &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>' },
-    labels: '',
-  },
 }
 
 export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: Props) {
@@ -63,7 +58,6 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
   const labelsTileRef = useRef<L.TileLayer | null>(null)
   const overlayRef = useRef<L.Polygon | null>(null)
   const [mapReady, setMapReady] = useState(false)
-  const [satellite, setSatellite] = useState(false)
   const [darkMode, setDarkMode] = useState(() =>
     typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
   )
@@ -235,44 +229,27 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
     })
   }, [selectedId, selectedFarm, mapReady])
 
-  // Swap tile layers when satellite or dark mode changes
+  // Swap tile layers when dark mode changes
   useEffect(() => {
     if (!mapRef.current) return
     import('leaflet').then(L => {
       const map = mapRef.current!
-      const tiles = satellite ? TILES.satellite : (darkMode ? TILES.dark : TILES.light)
+      const tiles = darkMode ? TILES.dark : TILES.light
       if (baseTileRef.current) { baseTileRef.current.remove() }
       if (labelsTileRef.current) { labelsTileRef.current.remove() }
       baseTileRef.current = L.tileLayer(tiles.url, tiles.options).addTo(map)
-      if (tiles.labels) {
-        labelsTileRef.current = L.tileLayer(tiles.labels, {
-          subdomains: 'abcd',
-          pane: 'shadowPane',
-        }).addTo(map)
-      } else {
-        labelsTileRef.current = null
-      }
+      labelsTileRef.current = L.tileLayer(tiles.labels, {
+        subdomains: 'abcd',
+        pane: 'shadowPane',
+      }).addTo(map)
 
-      // Update the outside-India overlay fill
       if (overlayRef.current) {
-        overlayRef.current.setStyle({
-          fillColor: darkMode ? '#111' : '#ddd',
-          fillOpacity: 0.6,
-        })
+        overlayRef.current.setStyle({ fillColor: darkMode ? '#111' : '#ddd' })
       }
     })
-  }, [satellite, darkMode])
+  }, [darkMode])
 
   return (
-    <>
-      <div ref={containerRef} id="map" className={satellite ? 'map--satellite' : ''} />
-      <button
-        className={`map-style-toggle${satellite ? ' map-style-toggle--active' : ''}`}
-        onClick={() => setSatellite(s => !s)}
-        title={satellite ? 'Switch to map view' : 'Switch to satellite view'}
-      >
-        {satellite ? '🗺 Map' : '🛰 Satellite'}
-      </button>
-    </>
+    <div ref={containerRef} id="map" />
   )
 }
