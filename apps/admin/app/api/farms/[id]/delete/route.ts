@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient } from '@/lib/supabase-server'
+import { SESSION_COOKIE, verifyToken } from '@/lib/session'
 import { deleteFarm, deleteFarmPullRequest } from '@/lib/github'
 
 interface Params { params: Promise<{ id: string }> }
 
 export async function POST(req: NextRequest, { params }: Params) {
+  const token = req.cookies.get(SESSION_COOKIE)?.value
+  if (!token || !(await verifyToken(token))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   const { id } = await params
-
-  const supabase = await createSupabaseServerClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
   const { farmType, farmName, mode } = await req.json()
 
   try {

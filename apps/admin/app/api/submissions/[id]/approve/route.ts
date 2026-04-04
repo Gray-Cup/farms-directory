@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createSupabaseServerClient, createSupabaseServiceClient } from '@/lib/supabase-server'
+import { SESSION_COOKIE, verifyToken } from '@/lib/session'
+import { createSupabaseServiceClient } from '@/lib/supabase-server'
 import { createFarmPullRequest } from '@/lib/github'
 import type { Submission } from '@farms/db'
 
@@ -8,21 +9,17 @@ interface Params {
 }
 
 export async function POST(req: NextRequest, { params }: Params) {
-  const { id } = await params
-
-  // Verify admin is authenticated
-  const supabaseAuth = await createSupabaseServerClient()
-  const { data: { user } } = await supabaseAuth.auth.getUser()
-  if (!user) {
+  const token = req.cookies.get(SESSION_COOKIE)?.value
+  if (!token || !(await verifyToken(token))) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
+  const { id } = await params
   const body = await req.json().catch(() => ({}))
   const reviewerNotes = body.reviewer_notes?.trim() ?? null
 
   const supabase = createSupabaseServiceClient()
 
-  // Fetch the submission
   const { data, error: fetchError } = await supabase
     .from('submissions')
     .select('*')
@@ -36,10 +33,8 @@ export async function POST(req: NextRequest, { params }: Params) {
   const submission = data as Submission
 
   try {
-    // Create the GitHub pull request
     const prUrl = await createFarmPullRequest(submission)
 
-    // Update submission status
     const { error: updateError } = await supabase
       .from('submissions')
       .update({
@@ -52,7 +47,6 @@ export async function POST(req: NextRequest, { params }: Params) {
 
     if (updateError) {
       console.error('Failed to update submission after PR creation:', updateError)
-      // PR was created, return its URL even if the DB update failed
     }
 
     return NextResponse.json({ ok: true, pr_url: prUrl })
