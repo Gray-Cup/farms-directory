@@ -177,6 +177,7 @@ a:hover { color: inherit; }
   border: none;
   border-radius: 4px;
   background: var(--color-surface);
+  color: #111;
 }
 .btn:hover { background: var(--color-hover); }
 .btn-primary { background: var(--color-primary); color: #fff; }
