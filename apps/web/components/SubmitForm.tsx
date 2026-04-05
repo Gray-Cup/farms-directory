@@ -25,7 +25,7 @@ export default function SubmitForm() {
   const [farmType, setFarmType] = useState<FarmType>('coffee')
   const [form, setForm] = useState({
     name: '', state: '', city: '', address: '', pincode: '', url: '', description: '',
-    elevation_meters: '', submitter_name: '', submitter_email: '', submitter_notes: '',
+    elevation_meters: '', lat: '', lng: '', submitter_name: '', submitter_email: '', submitter_notes: '',
   })
   const [varieties, setVarieties] = useState<string[]>([])
   const [teaTypes, setTeaTypes] = useState<string[]>([])
@@ -45,17 +45,21 @@ export default function SubmitForm() {
     setStatus('submitting')
     setErrorMsg('')
 
-    // Geocode the address via Nominatim (OpenStreetMap)
-    const coords = form.address
-      ? await geocodeAddress(form.address, form.city, form.state)
-      : null
+    // Use manual coords if provided, otherwise geocode from address
+    let lat: number | null = form.lat ? parseFloat(form.lat) : null
+    let lng: number | null = form.lng ? parseFloat(form.lng) : null
+    if ((lat === null || lng === null) && form.address) {
+      const coords = await geocodeAddress(form.address, form.city, form.state)
+      lat = coords?.lat ?? null
+      lng = coords?.lng ?? null
+    }
 
     const payload = {
       farm_type: farmType,
       ...form,
       elevation_meters: form.elevation_meters ? parseInt(form.elevation_meters, 10) : null,
-      lat: coords?.lat ?? null,
-      lng: coords?.lng ?? null,
+      lat,
+      lng,
       varieties: farmType === 'coffee' ? varieties : [],
       tea_types: farmType === 'tea' ? teaTypes : [],
       processing_methods: processing,
@@ -130,8 +134,23 @@ export default function SubmitForm() {
       <div className="form-group">
         <label>Address</label>
         <input type="text" value={form.address} onChange={set('address')} />
-        <p className="hint">Used to automatically find the farm&apos;s coordinates on the map.</p>
       </div>
+
+      <div className="form-row">
+        <div className="form-group">
+          <label>Latitude</label>
+          <input type="number" value={form.lat} onChange={set('lat')}
+            step="any" placeholder="e.g. 12.9716" />
+        </div>
+        <div className="form-group">
+          <label>Longitude</label>
+          <input type="number" value={form.lng} onChange={set('lng')}
+            step="any" placeholder="e.g. 77.5946" />
+        </div>
+      </div>
+      <p className="hint" style={{ marginTop: '-0.75rem', marginBottom: '0.75rem' }}>
+        Coordinates pin the farm on the map. Leave blank to auto-detect from address.
+      </p>
 
       <div className="form-row">
         <div className="form-group">

@@ -23,6 +23,8 @@ export default function FarmEditForm({ farm, farmType, contact }: Props) {
     url: farm.url ?? '',
     description: farm.description ?? '',
     elevation_meters: farm.elevation_meters ?? '',
+    lat: farm.lat ?? '',
+    lng: farm.lng ?? '',
   })
 
   // Contact state
@@ -42,7 +44,7 @@ export default function FarmEditForm({ farm, farmType, contact }: Props) {
       const res = await fetch(`/api/farms/${farm.id}/update`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ farmType, updates: { ...info, elevation_meters: info.elevation_meters ? Number(info.elevation_meters) : null } }),
+        body: JSON.stringify({ farmType, updates: { ...info, elevation_meters: info.elevation_meters ? Number(info.elevation_meters) : null, lat: info.lat !== '' ? Number(info.lat) : null, lng: info.lng !== '' ? Number(info.lng) : null } }),
       })
       const data = await res.json()
       if (!res.ok) throw new Error(data.error || 'Failed')
@@ -122,6 +124,8 @@ export default function FarmEditForm({ farm, farmType, contact }: Props) {
         {field('City', 'city')}
         {field('Address', 'address')}
         {field('Pincode', 'pincode')}
+        {field('Latitude', 'lat', 'number')}
+        {field('Longitude', 'lng', 'number')}
         {field('Website URL', 'url', 'url')}
         {field('Elevation (m)', 'elevation_meters', 'number')}
         <div className="form-group">
