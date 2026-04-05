@@ -1562,5 +1562,23 @@
     "processing_methods": ["Washed"],
     "certifications": [],
     "active": true
+  },
+  {
+    "id": "farm-045",
+    "name": "Riverdale Estate",
+    "state": "Tamil Nadu",
+    "city": "Yercaud",
+    "address": "Semmanatham, Yercaud, Shevaroy Hills, Salem District, Tamil Nadu",
+    "pincode": "636602",
+    "lat": 11.8520606,
+    "lng": 78.2263336,
+    "url": "https://riverdalecoffee.com",
+    "instagram": "https://www.instagram.com/riverdaleestate__yercaud_india/",
+    "description": "Riverdale Estate is located in the Eastern Ghat mountains of Yercaud, Tamil Nadu — a hill range locally known as the Shevaroy Hills. At approximately 1,450 metres, the estate sits within a lush highland terrain where a natural freshwater stream meanders through the farm, lending it its name. A family-owned business since 1920, now in its third generation, Riverdale is one of India's most experimental specialty coffee producers — home to the country's first Gesha cultivation. The farm employs modern processing infrastructure including a cupping lab, African raised drying beds, and temperature-controlled storage.",
+    "elevation_meters": 1450,
+    "varieties": ["Arabica", "SL9", "SL5B", "Gesha", "Yellow Bourbon"],
+    "processing_methods": ["Natural", "Washed", "Honey", "Carbonic Maceration"],
+    "certifications": [],
+    "active": true
   }
 ]
