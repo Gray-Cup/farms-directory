@@ -770,5 +770,31 @@
       "FSSAI"
     ],
     "active": true
+  },
+  {
+    "id": "2b28fbea-04ad-4755-bc8b-c7f8b09baa68",
+    "name": "abhimanyu's farm",
+    "state": "Rajasthan",
+    "city": "Jaipur",
+    "address": "blah blah blah",
+    "pincode": null,
+    "lat": null,
+    "lng": null,
+    "url": "https://ninjacooks.com",
+    "description": "no idea",
+    "elevation_meters": 1400,
+    "processing_methods": [
+      "Washed",
+      "Natural",
+      "Honey"
+    ],
+    "certifications": [
+      "Organic",
+      "Fair Trade"
+    ],
+    "active": true,
+    "varieties": [
+      "Arabica"
+    ]
   }
 ]
