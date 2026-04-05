@@ -26,14 +26,14 @@
   },
   {
     "id": "f1a2b3c4-0002-0000-0000-000000000002",
-    "name": "Balmaadi Estate",
+    "name": "Balmaadi",
     "state": "Tamil Nadu",
     "city": "Nilgiris",
     "address": "Gudalur, Nilgiris District, Tamil Nadu",
     "pincode": "643212",
     "lat": 11.493,
     "lng": 76.507,
-    "url": null,
+    "url": "",
     "description": "A high-altitude biodynamic estate producing single-origin Arabica with a distinct fruity profile. One of the few biodynamic coffee estates in India.",
     "elevation_meters": 1700,
     "varieties": [
