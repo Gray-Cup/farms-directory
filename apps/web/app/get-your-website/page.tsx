@@ -26,8 +26,7 @@ export default function GetYourWebsitePage() {
             rel="noopener noreferrer"
             className="pages-card"
           >
-            <span className="pages-card-label">Visit Gray Cup →</span>
-            <span className="pages-card-desc">See our work and portfolio at graycup.org</span>
+            <span className="pages-card-label">Visit Gray Cup </span>
           </a>
           <a
             href="https://wa.me/918527914317?text=I%20would%20like%20to%20enquire%20about%20websites%20you%20make%20and%20I%20got%20your%20number%20from%20gray%20farms"
