@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import type { CoffeeFarmData, TeaFarmData } from '@farms/db'
 import { SlidersHorizontalIcon } from 'lucide-react'
@@ -58,6 +58,8 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
   const [selectedId, setSelectedId] = useState<string | null>(initialFarmId ?? null)
   const [filterOpen, setFilterOpen] = useState(false)
   const [submitOpen, setSubmitOpen] = useState(false)
+  const [displayCount, setDisplayCount] = useState(10)
+  const resultsListRef = useRef<HTMLDivElement>(null)
 
   // Update tab from URL when component mounts
   useEffect(() => {
@@ -67,6 +69,32 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
       setTab(typeParam)
     }
   }, [])
+
+  // Handle infinite scroll to load more listings
+  useEffect(() => {
+    const listElement = resultsListRef.current
+    if (!listElement) return
+
+    const handleScroll = () => {
+      // Check if user has scrolled near the bottom
+      const scrollTop = listElement.scrollTop
+      const scrollHeight = listElement.scrollHeight
+      const clientHeight = listElement.clientHeight
+      const threshold = 300 // Load more when 300px from bottom
+
+      if (scrollHeight - (scrollTop + clientHeight) < threshold) {
+        setDisplayCount(prev => Math.min(prev + 10, filtered.length))
+      }
+    }
+
+    listElement.addEventListener('scroll', handleScroll)
+    return () => listElement.removeEventListener('scroll', handleScroll)
+  }, [filtered.length])
+
+  // Reset displayCount when filters or tab changes
+  useEffect(() => {
+    setDisplayCount(10)
+  }, [tab, search, selectedStates, selectedTags])
 
   const farms = tab === 'coffee' 
     ? shuffledCoffee 
@@ -350,7 +378,10 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
                 </div>
 
                 <div className="count">
-                  {filtered.length} {filtered.length === 1 ? 'result' : 'results'}
+                  {displayCount < filtered.length 
+                    ? `Showing ${displayCount} of ${filtered.length} results`
+                    : `${filtered.length} ${filtered.length === 1 ? 'result' : 'results'}`
+                  }
                   {activeFilterCount > 0 && (
                     <button className="count-clear" onClick={() => { setSelectedStates([]); setSelectedTags([]) }}>
                       · clear filters
@@ -360,8 +391,8 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
               </div>
 
               <div className="results-list-wrap">
-                <div className="results-list">
-                  {filtered.map(farm => {
+                <div className="results-list" ref={resultsListRef}>
+                  {filtered.slice(0, displayCount).map(farm => {
                     const isCoffee = 'varieties' in farm
                     const tags = isCoffee
                       ? [...(farm as CoffeeFarmData).varieties, ...(farm as CoffeeFarmData).certifications]
