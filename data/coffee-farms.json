@@ -1936,14 +1936,14 @@
     "varieties": ["Arabica (SLN 9)"]
   },
   {
-    "id": "assam-dima-changpijang-001",
-    "name": "Changpijang Coffee Village",
+    "id": "assam-dima-changpijang",
+    "name": "Changpijang",
     "state": "Assam",
     "city": "Dima Hasao",
     "address": "Changpijang, Dima Hasao district, Assam, India",
     "pincode": null,
-    "lat": 25.2893,
-    "lng": 93.0287,
+    "lat": 25.1614231,
+    "lng": 93.1165345,
     "url": "",
     "instagram": null,
     "description": "Part of the Dima Hasao coffee belt, this village contributes to the collective production of Arabica coffee in Northeast India.",
