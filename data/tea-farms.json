@@ -1074,5 +1074,23 @@
   "processing_methods": ["CTC"],
   "certifications": [],
   "active": true
+},
+{
+  "id": "westbengal-darjeeling-ringtong",
+  "name": "Ringtong Tea Estate",
+  "state": "West Bengal",
+  "city": "Darjeeling",
+  "address": "Ringtong Tea Estate, Darjeeling district, West Bengal, India",
+  "pincode": null,
+  "lat": 26.9335,
+  "lng": 88.2704,
+  "url": null,
+  "instagram": null,
+  "description": "Ringtong Tea Estate is located in the Darjeeling district of West Bengal, part of the renowned Darjeeling Himalayan tea-growing region. The estate is known for producing high-quality orthodox teas with distinctive floral aroma and muscatel flavor, typical of high-elevation Darjeeling plantations.",
+  "elevation_meters": 1400,
+  "tea_types": ["Black", "Green", "White"],
+  "processing_methods": ["Orthodox"],
+  "certifications": [],
+  "active": true
 }
 ]
