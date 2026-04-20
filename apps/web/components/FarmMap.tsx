@@ -68,7 +68,7 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
         maxBoundsViscosity: 1,
         minZoom: 4,
 
-      }).setView([22, 79], 5)
+      }).setView([20, 80], 6)
 
       mapRef.current = map
       setMapReady(true)
@@ -162,7 +162,7 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
           if (nextIds.has(id)) coords.push([marker.getLatLng().lat, marker.getLatLng().lng])
         })
         if (coords.length) {
-          map.fitBounds(coords, { padding: [30, 30], maxZoom: 12 })
+          map.fitBounds(coords, { padding: [30, 30], minZoom: 6, maxZoom: 12 })
         }
       }
     })
