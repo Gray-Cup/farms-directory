@@ -14,6 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { toSlug } from '@/lib/slug'
 
 const FarmMap = dynamic(() => import('./FarmMap'), { ssr: false })
+import type { MapBounds } from './FarmMap'
 
 type FarmType = 'coffee' | 'tea' | 'all'
 type AnyFarm = CoffeeFarmData | TeaFarmData
@@ -59,6 +60,7 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
   const [filterOpen, setFilterOpen] = useState(false)
   const [submitOpen, setSubmitOpen] = useState(false)
   const [displayCount, setDisplayCount] = useState(10)
+  const [mapBounds, setMapBounds] = useState<MapBounds | null>(null)
   const resultsListRef = useRef<HTMLDivElement>(null)
 
   // Update tab from URL when component mounts
@@ -103,7 +105,7 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
 
   const activeFilterCount = selectedStates.length + selectedTags.length
 
-  const filtered = useMemo(() => {
+  const filteredForMap = useMemo(() => {
     const q = search.toLowerCase().trim()
     const matches = farms.filter(f => {
       const name = f.name.toLowerCase()
@@ -129,6 +131,17 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
     })
   }, [farms, search, selectedStates, selectedTags])
 
+  const filtered = useMemo(() => {
+    if (!mapBounds) return filteredForMap
+    return filteredForMap.filter(f => {
+      if (f.lat == null || f.lng == null) return true
+      return (
+        f.lat >= mapBounds.south && f.lat <= mapBounds.north &&
+        f.lng >= mapBounds.west && f.lng <= mapBounds.east
+      )
+    })
+  }, [filteredForMap, mapBounds])
+
   // Handle infinite scroll to load more listings
   useEffect(() => {
     const listElement = resultsListRef.current
@@ -150,10 +163,10 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
     return () => listElement.removeEventListener('scroll', handleScroll)
   }, [filtered.length])
 
-  // Reset displayCount when filters or tab changes
+  // Reset displayCount when filters, tab, or map bounds change
   useEffect(() => {
     setDisplayCount(10)
-  }, [tab, search, selectedStates, selectedTags])
+  }, [tab, search, selectedStates, selectedTags, filtered])
 
   const toggleState = useCallback((state: string) => {
     setSelectedStates(prev => prev.includes(state) ? prev.filter(s => s !== state) : [...prev, state])
@@ -441,7 +454,7 @@ export default function DirectoryClient({ coffeeFarms, teaFarms, initialFarmId }
         </aside>
 
         <div className="map-aside" data-map>
-          <FarmMap farms={filtered} selectedId={selectedId} selectedFarm={selectedFarm} onSelect={handleSelect} />
+          <FarmMap farms={filteredForMap} selectedId={selectedId} selectedFarm={selectedFarm} onSelect={handleSelect} onBoundsChange={setMapBounds} />
         </div>
       </div>
 

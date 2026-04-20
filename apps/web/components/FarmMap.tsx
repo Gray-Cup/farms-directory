@@ -6,11 +6,19 @@ import type { CoffeeFarmData, TeaFarmData } from '@farms/db'
 
 type AnyFarm = CoffeeFarmData | TeaFarmData
 
+export interface MapBounds {
+  north: number
+  south: number
+  east: number
+  west: number
+}
+
 interface Props {
   farms: AnyFarm[]
   selectedId: string | null
   selectedFarm: AnyFarm | null
   onSelect: (id: string | null) => void
+  onBoundsChange?: (bounds: MapBounds) => void
 }
 
 const COFFEE_COLOR = '#b45309' // amber
@@ -44,7 +52,7 @@ const CYCLOSM_OPTIONS = {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }
 
-export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: Props) {
+export default function FarmMap({ farms, selectedId, selectedFarm, onSelect, onBoundsChange }: Props) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<L.Map | null>(null)
   const markersRef = useRef<Map<string, { marker: L.CircleMarker; farm: AnyFarm }>>(new Map())
@@ -72,6 +80,14 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect }: P
 
       mapRef.current = map
       setMapReady(true)
+
+      const emitBounds = () => {
+        if (!onBoundsChange) return
+        const b = map.getBounds()
+        onBoundsChange({ north: b.getNorth(), south: b.getSouth(), east: b.getEast(), west: b.getWest() })
+      }
+      map.on('moveend', emitBounds)
+      map.on('zoomend', emitBounds)
 
       L.tileLayer(CYCLOSM_URL, { ...CYCLOSM_OPTIONS, subdomains: 'abc' }).addTo(map)
 
