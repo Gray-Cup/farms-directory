@@ -178,7 +178,7 @@ export default function FarmMap({ farms, selectedId, selectedFarm, onSelect, onB
           if (nextIds.has(id)) coords.push([marker.getLatLng().lat, marker.getLatLng().lng])
         })
         if (coords.length) {
-          map.fitBounds(coords, { padding: [30, 30], minZoom: 6, maxZoom: 12 })
+          map.fitBounds(coords, { padding: [30, 30], maxZoom: 12 })
         }
       }
     })
